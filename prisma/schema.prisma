@@ -1,0 +1,24 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Pokemon {
+  id             Int    @id @default(autoincrement())
+  name           String @unique
+  height         Int
+  weight         Int
+  hp             Int
+  attack         Int
+  defense        Int
+  specialAttack  Int    @map("special_attack")
+  specialDefense Int    @map("special_defense")
+  speed          Int
+
+  @@map("pokemons")
+}
