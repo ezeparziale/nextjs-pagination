@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@libsql/client": "0.3.6",
+    "@prisma/adapter-libsql": "5.6.0",
+    "@prisma/client": "5.6.0",
     "next": "14.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -24,6 +27,7 @@
     "postcss": "8.4.32",
     "prettier": "3.1.0",
     "prettier-plugin-tailwindcss": "0.5.7",
+    "prisma": "5.6.0",
     "tailwindcss": "3.3.5",
     "typescript": "5.3.2"
   }
