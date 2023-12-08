@@ -1,53 +1,17 @@
-import { Suspense } from "react"
-
-import prismadb from "@/lib/prismadb"
-
-import CardList from "./_components/card-list"
-import Pagination from "./_components/pagination"
-import SearchPokemon from "./_components/search"
-import SkeletonCardList from "./_components/skeleton"
-
-export default async function Home({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string
-    page?: string
-    limit?: string
-  }
-}) {
-  const query = searchParams?.query || ""
-  const currentPage = Number(searchParams?.page) || 1
-  const limit = Number(searchParams?.limit) || 20
-  const offset = (currentPage - 1) * limit
-
-  const data = await prismadb.pokemon.findMany({
-    where: { name: { contains: query } },
-    skip: offset,
-    take: limit,
-  })
-
-  const totalCount = await prismadb.pokemon.count({
-    where: { name: { contains: query } },
-  })
-  const totalPages = Math.ceil(totalCount / limit)
-
+export default function Home() {
   return (
-    <main className="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <h1 className="mb-6 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-        Pokemon
-      </h1>
-      <div className="mb-3 flex items-center justify-between">
-        <div className="grow">
-          <SearchPokemon />
-        </div>
-        <div className="flex">
-          <Pagination totalPages={totalPages} />
+    <section className="w-full py-12 md:py-24 lg:py-32">
+      <div className="container px-4 md:px-6">
+        <div className="flex flex-col items-center space-y-4 text-center">
+          <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl">
+            Demo pagination{" "}
+            <span className="bg-gradient-to-r from-yellow-400 via-blue-500 to-red-600 bg-clip-text text-transparent">
+              Pokemon
+            </span>
+          </h1>
+          <p className="max-w-[600px] text-foreground md:text-xl">Test all variants</p>
         </div>
       </div>
-      <Suspense key={query + currentPage} fallback={<SkeletonCardList />}>
-        <CardList data={data} />
-      </Suspense>
-    </main>
+    </section>
   )
 }

@@ -10,7 +10,7 @@ interface IPokemon {
 export default function PokemonCard({ id, name }: IPokemon) {
   return (
     <>
-      <Card className="h-[200px] w-[200px]">
+      <Card>
         <CardHeader>
           <div className="mt-2 flex justify-center">
             <h2 className="text-2xl font-bold">{name}</h2>
