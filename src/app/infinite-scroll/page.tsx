@@ -5,7 +5,7 @@ import InfiniteCardList from "../_components/infinite-card-list"
 import SearchPokemon from "../_components/search"
 import SkeletonCardList from "../_components/skeleton"
 
-export default async function Page({
+export default async function InfiniteScrollPage({
   searchParams,
 }: {
   searchParams?: {
@@ -19,10 +19,8 @@ export default async function Page({
 
   return (
     <>
-      <div className="mb-3 flex items-center justify-between">
-        <div className="grow">
-          <SearchPokemon />
-        </div>
+      <div className="mb-3">
+        <SearchPokemon />
       </div>
       <Suspense key={search} fallback={<SkeletonCardList />}>
         <InfiniteCardList search={search} initialData={initialData} limit={limit} />

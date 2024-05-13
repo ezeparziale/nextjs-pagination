@@ -1,14 +1,12 @@
 import { Suspense } from "react"
 
-import prismadb from "@/lib/prismadb"
-
 import { GetPokemons } from "../_actions"
 import CardList from "../_components/card-list"
 import Pagination from "../_components/pagination"
 import SearchPokemon from "../_components/search"
 import SkeletonCardList from "../_components/skeleton"
 
-export default async function Home({
+export default async function ServerPaginationPage({
   searchParams,
 }: {
   searchParams?: {
@@ -27,12 +25,8 @@ export default async function Home({
   return (
     <>
       <div className="mb-3 flex items-center justify-between">
-        <div className="grow">
-          <SearchPokemon />
-        </div>
-        <div className="flex">
-          <Pagination totalPages={totalPages} />
-        </div>
+        <SearchPokemon />
+        <Pagination totalPages={totalPages} />
       </div>
       <Suspense key={search + currentPage} fallback={<SkeletonCardList />}>
         <CardList data={data} />
