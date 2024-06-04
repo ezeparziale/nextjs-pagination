@@ -8,3 +8,5 @@
 - Pagination
 - Search
 - React server components
+- Server pagination
+- Infite scroll
