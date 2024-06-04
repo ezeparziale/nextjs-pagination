@@ -23,8 +23,8 @@ export default function Pagination({ totalPages }: IPagination) {
   }
   return (
     <>
-      <div className="flex items-center justify-between space-x-3">
-        <Button size="icon" asChild>
+      <div className="flex items-center justify-between space-x-1">
+        <Button className="h-8 w-8" asChild>
           <Link
             href={createPageURL(currentPage - 1)}
             className={currentPage - 1 === 0 ? `pointer-events-none opacity-50` : ""}
@@ -32,7 +32,7 @@ export default function Pagination({ totalPages }: IPagination) {
             <ChevronLeft />
           </Link>
         </Button>
-        <Button size="icon" asChild>
+        <Button className="h-8 w-8" asChild>
           <Link
             href={createPageURL(currentPage + 1)}
             className={

@@ -40,14 +40,14 @@ export default function SearchPokemon() {
   }
 
   return (
-    <div className="min-w-40 relative flex w-2/3 items-center gap-1.5">
+    <div className="relative flex h-8 items-center ">
       {isSearching ? (
-        <Loader2 className="size-5 absolute left-4 animate-spin text-muted-foreground" />
+        <Loader2 className="absolute left-2 top-2 size-4 animate-spin text-muted-foreground" />
       ) : (
-        <SearchIcon className="size-5 absolute left-4 text-muted-foreground" />
+        <SearchIcon className="absolute left-2 top-2 size-4 text-muted-foreground" />
       )}
       <Input
-        className="w-2/3 p-5 pl-12"
+        className="h-8 w-[160px] pl-8 lg:w-[250px]"
         placeholder="Search..."
         onChange={(e) => {
           handleSearch(e.target.value)
@@ -62,7 +62,7 @@ export default function SearchPokemon() {
       />
       {q && (
         <Button
-          className="ml-1"
+          className="absolute right-2 top-2 h-4 w-4"
           onClick={handleClearInput}
           variant={"ghost"}
           size={"icon"}
