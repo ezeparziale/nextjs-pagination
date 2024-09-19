@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16.4
+    hostname: postgres_db
+    container_name: postgres_db
+    restart: always
+    user: ${DATABASE_USER}
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_DB}
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    networks:
+      - next_net
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  adminer:
+    image: adminer:4.8.1
+    hostname: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - next_net
+
+volumes:
+  postgres-db:
+
+networks:
+  next_net:
+    name: next_net
