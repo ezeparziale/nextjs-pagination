@@ -3,10 +3,10 @@
 ## Features:
 
 - Nextjs 14
-- Turso db
+- Postgres
 - Prisma
 - Pagination
 - Search
 - React server components
 - Server pagination
-- Infite scroll
+- Infinite scroll
