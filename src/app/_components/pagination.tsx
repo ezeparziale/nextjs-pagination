@@ -28,6 +28,7 @@ export default function Pagination({ totalPages }: IPagination) {
           <Link
             href={createPageURL(currentPage - 1)}
             className={currentPage - 1 === 0 ? `pointer-events-none opacity-50` : ""}
+            prefetch={true}
           >
             <ChevronLeft />
           </Link>
@@ -38,6 +39,7 @@ export default function Pagination({ totalPages }: IPagination) {
             className={
               currentPage >= totalPages ? `pointer-events-none opacity-50` : ""
             }
+            prefetch={true}
           >
             <ChevronRight />
           </Link>
