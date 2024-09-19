@@ -6,7 +6,7 @@ export default function HomePage() {
           <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl">
             Demo pagination{" "}
             <span className="bg-gradient-to-r from-yellow-400 via-blue-500 to-red-600 bg-clip-text text-transparent">
-              Pokemon
+              Pokemons
             </span>
           </h1>
           <p className="max-w-[600px] text-foreground md:text-xl">Test all variants</p>
