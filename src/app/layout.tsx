@@ -1,11 +1,13 @@
 import type { Metadata } from "next"
+import { Geist } from "next/font/google"
 
 import { cn } from "@/lib/utils"
-import { GeistSans } from "geist/font/sans"
 
 import Navbar from "./_components/navbar/navbar"
 import Providers from "./_components/providers"
 import "./globals.css"
+
+const font = Geist({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Nextjs app with pagination",
@@ -15,9 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn("min-h-screen bg-background antialiased", GeistSans.className)}
-      >
+      <body className={cn("min-h-screen bg-background antialiased", font.className)}>
         <div className="relative flex min-h-screen flex-col">
           <Providers>
             <Navbar />
