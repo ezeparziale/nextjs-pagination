@@ -2,9 +2,10 @@
 
 ## Features:
 
-- Nextjs 14
+- Nextjs 15
+- React 19
 - Postgres
-- Prisma
+- Prisma ORM
 - Pagination
 - Search
 - React server components
