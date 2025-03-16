@@ -4,6 +4,7 @@
 
 - Nextjs 15
 - React 19
+- Tailwind CSS v4
 - Postgres
 - Prisma ORM
 - Pagination
