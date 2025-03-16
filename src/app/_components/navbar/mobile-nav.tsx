@@ -8,6 +8,7 @@ import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { Menu } from "lucide-react"
 
+import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetClose,
@@ -23,7 +24,6 @@ import ThemeSwitch from "./theme-switch"
 
 export default function MobileNav({ navigation }: { navigation: INavigation[] }) {
   const pathname = usePathname()
-
   const [openSheet, setOpenSheet] = useState(false)
 
   return (
@@ -32,14 +32,11 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
       <div className="flex items-center">
         <ThemeSwitch />
         <Sheet open={openSheet} onOpenChange={setOpenSheet}>
-          <SheetTrigger asChild aria-controls="radix-:Ribdd9j9:">
-            <button
-              type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-white"
-            >
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <Menu className="size-5" />
               <span className="sr-only">Open main menu</span>
-              <Menu className="h-6 w-6" aria-hidden="true" />
-            </button>
+            </Button>
           </SheetTrigger>
           <SheetContent className="fixed inset-y-0 right-0 w-full overflow-y-auto border-0 sm:border-l-2">
             <SheetHeader>
@@ -47,27 +44,26 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
                 <Logo />
               </SheetTitle>
             </SheetHeader>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/10 dark:divide-white/50">
-                <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
-                    <SheetClose asChild key={item.name}>
+            <div className="flex-1 overflow-y-auto py-6">
+              <ul className="flex flex-col gap-1 px-4">
+                {navigation.map((item) => (
+                  <li key={item.name}>
+                    <SheetClose asChild>
                       <Link
-                        key={`sheet_close_${item.name}`}
                         href={item.href}
                         className={cn(
-                          "-mx-3 block rounded-lg px-3 py-2 text-sm  transition-colors hover:text-foreground/80",
+                          "hover:bg-accent flex h-10 items-center rounded-md px-4 text-sm font-medium transition-colors",
                           pathname === item.href
-                            ? "font-bold text-foreground"
-                            : "text-foreground/60",
+                            ? "bg-accent text-accent-foreground"
+                            : "text-muted-foreground hover:text-foreground",
                         )}
                       >
                         {item.name}
                       </Link>
                     </SheetClose>
-                  ))}
-                </div>
-              </div>
+                  </li>
+                ))}
+              </ul>
             </div>
           </SheetContent>
         </Sheet>
