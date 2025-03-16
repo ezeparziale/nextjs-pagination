@@ -27,7 +27,7 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
   const [openSheet, setOpenSheet] = useState(false)
 
   return (
-    <div className="flex flex-grow items-center justify-between lg:hidden">
+    <div className="flex grow items-center justify-between lg:hidden">
       <Logo />
       <div className="flex items-center">
         <ThemeSwitch />
