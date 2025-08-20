@@ -1,5 +1,6 @@
 "use client"
 
+import { Route } from "next"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { useRef, useTransition } from "react"
@@ -28,7 +29,7 @@ export default function SearchPokemon() {
       } else {
         params.delete("query")
       }
-      replace(`${pathname}?${params.toString()}`)
+      replace(`${pathname}?${params.toString()}` as Route)
     })
   }, 300)
 

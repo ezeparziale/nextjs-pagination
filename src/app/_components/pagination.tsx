@@ -1,5 +1,6 @@
 "use client"
 
+import { Route } from "next"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
 
@@ -26,7 +27,7 @@ export default function Pagination({ totalPages }: IPagination) {
       <div className="flex items-center justify-between space-x-1">
         <Button size="icon" className="h-8 w-8" asChild>
           <Link
-            href={createPageURL(currentPage - 1)}
+            href={createPageURL(currentPage - 1) as Route}
             className={currentPage - 1 === 0 ? `pointer-events-none opacity-50` : ""}
             prefetch={true}
           >
@@ -35,7 +36,7 @@ export default function Pagination({ totalPages }: IPagination) {
         </Button>
         <Button size="icon" className="h-8 w-8" asChild>
           <Link
-            href={createPageURL(currentPage + 1)}
+            href={createPageURL(currentPage + 1) as Route}
             className={
               currentPage >= totalPages ? `pointer-events-none opacity-50` : ""
             }

@@ -1,5 +1,6 @@
 "use client"
 
+import { Route } from "next"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -19,7 +20,7 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
         {navigation.map((item) => (
           <Link
             key={`menu_lg_${item.name}`}
-            href={item.href}
+            href={item.href as Route}
             className={cn(
               "text-md hover:text-foreground/80 transition-colors",
               pathname === item.href

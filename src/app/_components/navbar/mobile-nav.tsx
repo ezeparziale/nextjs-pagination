@@ -1,5 +1,6 @@
 "use client"
 
+import { Route } from "next"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -50,7 +51,7 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
                   <li key={item.name}>
                     <SheetClose asChild>
                       <Link
-                        href={item.href}
+                        href={item.href as Route}
                         className={cn(
                           "hover:bg-accent flex h-10 items-center rounded-md px-4 text-sm font-medium transition-colors",
                           pathname === item.href

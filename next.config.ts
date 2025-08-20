@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [{ hostname: "raw.githubusercontent.com" }],
     qualities: [75, 100],
   },
+  typedRoutes: true,
 }
 
 export default nextConfig
