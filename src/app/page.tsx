@@ -9,7 +9,7 @@ export default function HomePage() {
               Pokemons
             </span>
           </h1>
-          <p className="max-w-[600px] text-foreground md:text-xl">Test all variants</p>
+          <p className="text-foreground max-w-[600px] md:text-xl">Test all variants</p>
         </div>
       </div>
     </section>

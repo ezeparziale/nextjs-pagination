@@ -6,10 +6,10 @@ export default function SkeletonCardList() {
       {[...Array(20)].map((p, index) => (
         <Card key={index} className="h-[200px] min-w-[200px] animate-pulse">
           <CardHeader>
-            <div className="h-6 rounded-md bg-primary/10" />
+            <div className="bg-primary/10 h-6 rounded-md" />
           </CardHeader>
           <CardContent>
-            <div className="h-24 rounded-md bg-primary/10" />
+            <div className="bg-primary/10 h-24 rounded-md" />
           </CardContent>
         </Card>
       ))}

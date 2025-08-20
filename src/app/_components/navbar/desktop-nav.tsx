@@ -21,9 +21,9 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
             key={`menu_lg_${item.name}`}
             href={item.href}
             className={cn(
-              "text-md transition-colors hover:text-foreground/80",
+              "text-md hover:text-foreground/80 transition-colors",
               pathname === item.href
-                ? "font-bold text-foreground"
+                ? "text-foreground font-bold"
                 : "text-foreground/60",
             )}
           >

@@ -5,14 +5,12 @@ import InfiniteCardList from "../_components/infinite-card-list"
 import SearchPokemon from "../_components/search"
 import SkeletonCardList from "../_components/skeleton"
 
-export default async function InfiniteScrollPage(
-  props: {
-    searchParams?: Promise<{
-      query?: string
-    }>
-  }
-) {
-  const searchParams = await props.searchParams;
+export default async function InfiniteScrollPage(props: {
+  searchParams?: Promise<{
+    query?: string
+  }>
+}) {
+  const searchParams = await props.searchParams
   const search = searchParams?.query || ""
   const limit = 20
 

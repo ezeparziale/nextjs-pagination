@@ -6,16 +6,14 @@ import Pagination from "../_components/pagination"
 import SearchPokemon from "../_components/search"
 import SkeletonCardList from "../_components/skeleton"
 
-export default async function ServerPaginationPage(
-  props: {
-    searchParams?: Promise<{
-      query?: string
-      page?: string
-      limit?: string
-    }>
-  }
-) {
-  const searchParams = await props.searchParams;
+export default async function ServerPaginationPage(props: {
+  searchParams?: Promise<{
+    query?: string
+    page?: string
+    limit?: string
+  }>
+}) {
+  const searchParams = await props.searchParams
   const search = searchParams?.query || ""
   const currentPage = Number(searchParams?.page) || 1
   const limit = Number(searchParams?.limit) || 20
