@@ -23,6 +23,7 @@ export default function PokemonCard({ id, name }: IPokemon) {
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
             width="100"
             height="100"
+            quality={75}
           />
         </CardContent>
       </Card>
