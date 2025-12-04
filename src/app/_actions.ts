@@ -1,6 +1,6 @@
 "use server"
 
-import prismadb from "@/lib/prismadb"
+import { db } from "@/lib/db"
 
 export async function GetPokemons({
   search,
@@ -11,13 +11,13 @@ export async function GetPokemons({
   offset?: number
   limit?: number
 }) {
-  const data = await prismadb.pokemon.findMany({
+  const data = await db.pokemon.findMany({
     where: { name: { contains: search } },
     skip: offset,
     take: limit,
   })
 
-  const totalCount = await prismadb.pokemon.count({
+  const totalCount = await db.pokemon.count({
     where: { name: { contains: search } },
   })
   const totalPages = Math.ceil(totalCount / limit)
