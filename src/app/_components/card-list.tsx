@@ -1,4 +1,4 @@
-import type { Pokemon } from "@prisma/client"
+import type { Pokemon } from "@/generated/prisma/client"
 
 import PokemonCard from "./card"
 

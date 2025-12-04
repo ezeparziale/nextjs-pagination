@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 
-import type { Pokemon } from "@prisma/client"
+import type { Pokemon } from "@/generated/prisma/client"
 import { Loader2 } from "lucide-react"
 import { useInView } from "react-intersection-observer"
 
