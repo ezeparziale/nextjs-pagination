@@ -5,11 +5,16 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { useRef, useTransition } from "react"
 
-import { Loader2, SearchIcon, XCircleIcon } from "lucide-react"
+import { SearchIcon, XIcon } from "lucide-react"
 import { useDebouncedCallback } from "use-debounce"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "@/components/ui/input-group"
+import { Spinner } from "@/components/ui/spinner"
 
 export default function SearchPokemon() {
   const searchParams = useSearchParams()
@@ -41,13 +46,11 @@ export default function SearchPokemon() {
   }
 
   return (
-    <div className="relative flex h-8 items-center">
-      {isSearching ? (
-        <Loader2 className="text-muted-foreground absolute top-2 left-2 size-4 animate-spin" />
-      ) : (
-        <SearchIcon className="text-muted-foreground absolute top-2 left-2 size-4" />
-      )}
-      <Input
+    <InputGroup className="h-8 max-w-sm min-w-[150px] flex-1 lg:w-[250px]">
+      <InputGroupAddon align="inline-start" className="cursor-default">
+        {isSearching ? <Spinner /> : <SearchIcon />}
+      </InputGroupAddon>
+      <InputGroupInput
         className="h-8 w-[160px] pl-8 lg:w-[250px]"
         placeholder="Search..."
         onChange={(e) => {
@@ -62,15 +65,12 @@ export default function SearchPokemon() {
         ref={inputRef}
       />
       {q && (
-        <Button
-          className="absolute top-2 right-2 h-4 w-4"
-          onClick={handleClearInput}
-          variant={"ghost"}
-          size={"icon"}
-        >
-          <XCircleIcon className="text-muted-foreground size-5" />
-        </Button>
+        <InputGroupAddon align="inline-end">
+          <InputGroupButton size="icon-xs" variant="ghost" onClick={handleClearInput}>
+            <XIcon className="text-muted-foreground size-4" />
+          </InputGroupButton>
+        </InputGroupAddon>
       )}
-    </div>
+    </InputGroup>
   )
 }
