@@ -21,7 +21,7 @@ import {
 
 import Logo from "./logo"
 import { INavigation } from "./navbar"
-import ThemeSwitch from "./theme-switch"
+import { ThemeToggle } from "./theme-toggle"
 
 export default function MobileNav({ navigation }: { navigation: INavigation[] }) {
   const pathname = usePathname()
@@ -31,7 +31,7 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
     <div className="flex grow items-center justify-between lg:hidden">
       <Logo />
       <div className="flex items-center">
-        <ThemeSwitch />
+        <ThemeToggle />
         <Sheet open={openSheet} onOpenChange={setOpenSheet}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">

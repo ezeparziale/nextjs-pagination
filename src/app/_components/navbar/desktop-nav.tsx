@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 
 import Logo from "./logo"
 import { INavigation } from "./navbar"
-import ThemeSwitch from "./theme-switch"
+import { ThemeToggle } from "./theme-toggle"
 
 export default function DesktopNav({ navigation }: { navigation: INavigation[] }) {
   const pathname = usePathname()
@@ -33,7 +33,7 @@ export default function DesktopNav({ navigation }: { navigation: INavigation[] }
         ))}
       </div>
       <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-        <ThemeSwitch />
+        <ThemeToggle />
       </div>
     </>
   )
