@@ -12,8 +12,8 @@
     "format:fix": "prettier --write ."
   },
   "dependencies": {
-    "@prisma/adapter-pg": "7.1.0",
-    "@prisma/client": "7.1.0",
+    "@prisma/adapter-pg": "7.3.0",
+    "@prisma/client": "7.3.0",
     "@radix-ui/react-dialog": "1.1.6",
     "@radix-ui/react-dropdown-menu": "2.1.6",
     "@radix-ui/react-slot": "1.1.2",
@@ -40,7 +40,7 @@
     "eslint-config-next": "16.0.10",
     "prettier": "3.6.2",
     "prettier-plugin-tailwindcss": "0.6.14",
-    "prisma": "7.1.0",
+    "prisma": "7.3.0",
     "tailwindcss": "4.1.12",
     "typescript": "5.9.2"
   }
