@@ -2,8 +2,9 @@
 
 ## Features:
 
-- Nextjs 15
+- Nextjs 16
 - React 19
+- TypeScript
 - Tailwind CSS v4
 - Postgres
 - Prisma ORM
