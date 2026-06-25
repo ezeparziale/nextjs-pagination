@@ -26,7 +26,7 @@
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-intersection-observer": "10.0.3",
-    "tailwind-merge": "3.5.0",
+    "tailwind-merge": "3.6.0",
     "tailwindcss-animate": "1.0.7",
     "use-debounce": "10.1.1"
   },
