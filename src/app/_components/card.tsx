@@ -21,20 +21,21 @@ export default function PokemonCard({ id, name }: IPokemon) {
         </div>
       </CardHeader>
       <CardContent>
-        {isLoading && (
-          <div className="bg-primary/10 h-24 w-24 mx-auto rounded-md animate-pulse" />
-        )}
-        <Image
-          alt={name}
-          className="mx-auto"
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
-          width="100"
-          height="100"
-          quality={65}
-          loading="lazy"
-          onLoad={() => setIsLoading(false)}
-          style={{ display: isLoading ? 'none' : 'block' }}
-        />
+        <div className="relative h-24 w-24 mx-auto">
+          {isLoading && (
+            <div className="absolute inset-0 bg-primary/10 rounded-md animate-pulse" />
+          )}
+          <Image
+            alt={name}
+            className="mx-auto"
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
+            width="100"
+            height="100"
+            quality={65}
+            loading="lazy"
+            onLoad={() => setIsLoading(false)}
+          />
+        </div>
       </CardContent>
     </Card>
   )
