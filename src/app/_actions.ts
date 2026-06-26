@@ -24,6 +24,3 @@ export async function GetPokemons({
 
   return { data, totalCount, totalPages }
 }
-
-// Revalidation every 1 hour for better cache management
-export const revalidate = 3600
