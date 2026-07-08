@@ -31,7 +31,7 @@
     "use-debounce": "10.1.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "4.3.1",
+    "@tailwindcss/postcss": "4.3.2",
     "@trivago/prettier-plugin-sort-imports": "6.0.2",
     "@types/node": "24.13.2",
     "@types/react": "19.2.17",
