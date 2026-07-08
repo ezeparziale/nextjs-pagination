@@ -4,12 +4,5 @@ allowBuilds:
   sharp: true
   unrs-resolver: true
 minimumReleaseAgeExclude:
-  - hono@4.12.21
-  - js-yaml@4.1.2
-  - '@babel/core@7.29.1'
-  - hono@4.12.25
-overrides:
-  '@babel/core@<=7.29.0': ^7.29.1
-  hono@<4.12.21: ^4.12.21
-  hono@<4.12.25: ^4.12.25
-  js-yaml@<=4.1.1: ^4.1.2
+  - '@hono/node-server@1.19.13'
+  - postcss@8.5.10
