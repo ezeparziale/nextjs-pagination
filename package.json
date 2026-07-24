@@ -39,7 +39,7 @@
     "eslint": "9.39.5",
     "eslint-config-next": "16.2.11",
     "prettier": "3.9.6",
-    "prettier-plugin-tailwindcss": "0.8.0",
+    "prettier-plugin-tailwindcss": "0.8.1",
     "prisma": "7.9.0",
     "tailwindcss": "4.3.1",
     "typescript": "5.9.3"
