@@ -18,6 +18,5 @@
     "^[./]"
   ],
   "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true,
-  "tailwindConfig": "./tailwind.config.ts"
+  "importOrderSortSpecifiers": true
 }
