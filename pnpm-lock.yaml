@@ -66,8 +66,8 @@ importers:
         specifier: 19.3.1
         version: 19.3.1(react@19.3.1)
       react-intersection-observer:
-        specifier: 10.1.0
-        version: 10.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: 11.0.1
+        version: 11.0.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       tailwind-merge:
         specifier: 3.6.0
         version: 3.6.0
@@ -3150,8 +3150,8 @@ packages:
     peerDependencies:
       react: ^19.3.1
 
-  react-intersection-observer@10.1.0:
-    resolution: {integrity: sha512-V8HDu3+Llg6OEhOxx8LnUSS0t4VS+1Xk9ZatkI8Jct/H0CwKnqFTCu8NT3q7ghJTghTdIrEMPSWr2dkKPG+gdQ==}
+  react-intersection-observer@11.0.1:
+    resolution: {integrity: sha512-BIZ1M40GPSKDIT1MJbXK7SB0BwBaTKr84QfZCs5asKer7YMOYLzMi+RI1F4VStbZLGHoosJmd+aOQDDipUV1gA==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -6787,7 +6787,7 @@ snapshots:
       react: 19.3.1
       scheduler: 0.28.0
 
-  react-intersection-observer@10.1.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
+  react-intersection-observer@11.0.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
       react: 19.3.1
     optionalDependencies:
