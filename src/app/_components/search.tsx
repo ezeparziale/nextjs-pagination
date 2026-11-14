@@ -63,7 +63,7 @@ export default function SearchPokemon() {
   }
 
   return (
-    <InputGroup className="h-8 w-full max-w-sm">
+    <InputGroup className="h-8 w-full max-w-sm flex-1">
       <InputGroupAddon align="inline-start" className="cursor-default">
         {isSearching ? <Spinner /> : <SearchIcon aria-hidden="true" />}
       </InputGroupAddon>
