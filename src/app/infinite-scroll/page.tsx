@@ -21,7 +21,7 @@ export default async function InfiniteScrollPage(props: {
       <div className="mb-3">
         <SearchPokemon />
       </div>
-      <Suspense key={search} fallback={<SkeletonCardList />}>
+      <Suspense key={search} fallback={<SkeletonCardList count={limit} />}>
         <InfiniteCardList search={search} initialData={initialData} limit={limit} />
       </Suspense>
     </>

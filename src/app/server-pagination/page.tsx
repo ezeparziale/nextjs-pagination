@@ -50,7 +50,10 @@ export default async function ServerPaginationPage(props: {
         <SearchPokemon />
         <Pagination totalPages={totalPages} />
       </div>
-      <Suspense key={search + currentPage} fallback={<SkeletonCardList />}>
+      <Suspense
+        key={search + currentPage}
+        fallback={<SkeletonCardList count={limit} />}
+      >
         <CardList data={data} />
       </Suspense>
     </>
