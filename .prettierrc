@@ -13,7 +13,6 @@
     "^(react/(.*)$)|^(react$)",
     "<THIRD_PARTY_MODULES>",
     "^@/components/(.*)$|^components/(.*)$",
-    "^#/lib/(.*)$",
     "^@/styles/(.*)$",
     "^[./]"
   ],
