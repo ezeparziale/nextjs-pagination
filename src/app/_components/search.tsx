@@ -63,12 +63,12 @@ export default function SearchPokemon() {
   }
 
   return (
-    <InputGroup className="h-8 max-w-sm min-w-[150px] flex-1 lg:w-[250px]">
+    <InputGroup className="h-8 w-full max-w-sm">
       <InputGroupAddon align="inline-start" className="cursor-default">
         {isSearching ? <Spinner /> : <SearchIcon aria-hidden="true" />}
       </InputGroupAddon>
       <InputGroupInput
-        className="h-8 w-[160px] pl-8 lg:w-[250px]"
+        className="h-8 pl-8"
         placeholder="Search..."
         aria-label="Search Pokemon"
         value={value}
