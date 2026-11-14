@@ -1,10 +1,10 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useRef, useState } from "react"
 
 import type { Pokemon } from "@/generated/prisma/client"
 import { Loader2 } from "lucide-react"
-import { useInView } from "react-intersection-observer"
+import { useOnInView } from "react-intersection-observer"
 
 import { GetPokemons } from "../_actions"
 import PokemonCard from "./card"
@@ -18,31 +18,34 @@ interface IProps {
 export default function InfiniteCardList({ initialData, search, limit }: IProps) {
   const [data, setData] = useState(initialData)
   const [page, setPage] = useState(1)
-  const [ref, inView] = useInView()
   const [isDisable, setDisable] = useState(false)
+  const isLoadingRef = useRef(false)
 
-  async function loadMoreData() {
-    const next = page + 1
-    const offset = page * limit
-    const { data: newData } = await GetPokemons({ search, offset, limit })
+  const loadMoreData = useCallback(async () => {
+    if (isLoadingRef.current || isDisable) return
+    isLoadingRef.current = true
 
-    if (newData.length) {
-      setPage(next)
-      setData((prev: Pokemon[] | undefined) => [
-        ...(prev?.length ? prev : []),
-        ...newData,
-      ])
-    } else {
-      setDisable(true)
+    try {
+      const next = page + 1
+      const offset = page * limit
+      const { data: newData } = await GetPokemons({ search, offset, limit })
+
+      if (newData.length) {
+        setPage(next)
+        setData((prev: Pokemon[]) => [...prev, ...newData])
+      } else {
+        setDisable(true)
+      }
+    } finally {
+      isLoadingRef.current = false
     }
-  }
+  }, [isDisable, page, limit, search])
 
-  useEffect(() => {
+  const ref = useOnInView((inView) => {
     if (inView) {
       loadMoreData()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView])
+  })
 
   return (
     <>
