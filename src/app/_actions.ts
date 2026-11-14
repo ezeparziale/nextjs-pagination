@@ -13,6 +13,7 @@ export async function GetPokemons({
 }) {
   const data = await db.pokemon.findMany({
     where: { name: { contains: search } },
+    orderBy: { id: "asc" },
     skip: offset,
     take: limit,
   })
