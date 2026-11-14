@@ -12,7 +12,6 @@ import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -34,11 +33,9 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
       <div className="flex items-center">
         <ThemeToggle />
         <Sheet open={openSheet} onOpenChange={setOpenSheet}>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <Menu className="size-5" />
-              <span className="sr-only">Open main menu</span>
-            </Button>
+          <SheetTrigger render={<Button variant="ghost" size="icon-sm" />}>
+            <Menu aria-hidden="true" />
+            <span className="sr-only">Open main menu</span>
           </SheetTrigger>
           <SheetContent className="fixed inset-y-0 right-0 w-full overflow-y-auto border-0 sm:border-l-2">
             <SheetHeader>
@@ -51,19 +48,18 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
               <ul className="flex flex-col gap-1 px-4">
                 {navigation.map((item) => (
                   <li key={item.name}>
-                    <SheetClose asChild>
-                      <Link
-                        href={item.href as Route}
-                        className={cn(
-                          "hover:bg-accent flex h-10 items-center rounded-md px-4 text-sm font-medium transition-colors",
-                          pathname === item.href
-                            ? "bg-accent text-accent-foreground"
-                            : "text-muted-foreground hover:text-foreground",
-                        )}
-                      >
-                        {item.name}
-                      </Link>
-                    </SheetClose>
+                    <Link
+                      href={item.href as Route}
+                      onClick={() => setOpenSheet(false)}
+                      className={cn(
+                        "hover:bg-accent flex h-10 items-center rounded-md px-4 text-sm font-medium transition-colors",
+                        pathname === item.href
+                          ? "bg-accent text-accent-foreground"
+                          : "text-muted-foreground hover:text-foreground",
+                      )}
+                    >
+                      {item.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
