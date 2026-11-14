@@ -3,7 +3,7 @@
 import { Route } from "next"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
-import { useRef, useTransition } from "react"
+import { useCallback, useEffect, useRef, useState, useTransition } from "react"
 
 import { SearchIcon, XIcon } from "lucide-react"
 import { useDebouncedCallback } from "use-debounce"
@@ -20,30 +20,46 @@ export default function SearchPokemon() {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
-  const [isSearching, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition()
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const q = searchParams.get("query")?.toString()
+  const q = searchParams.get("query") ?? ""
+  const [value, setValue] = useState(q)
+  const [prevQuery, setPrevQuery] = useState(q)
 
-  const handleSearch = useDebouncedCallback((query: string) => {
-    startTransition(() => {
-      const params = new URLSearchParams(searchParams)
-      if (query) {
-        params.set("query", query)
-        params.set("page", "1")
-      } else {
-        params.delete("query")
-        params.delete("page")
-      }
-      replace(`${pathname}?${params.toString()}` as Route)
-    })
-  }, 300)
+  if (q !== prevQuery) {
+    setPrevQuery(q)
+    setValue(q)
+  }
+
+  const updateUrl = useCallback(
+    (query: string) => {
+      startTransition(() => {
+        const params = new URLSearchParams(searchParams)
+        if (query) {
+          params.set("query", query)
+          params.set("page", "1")
+        } else {
+          params.delete("query")
+          params.delete("page")
+        }
+        replace(`${pathname}?${params.toString()}` as Route)
+      })
+    },
+    [pathname, replace, searchParams],
+  )
+
+  const handleSearch = useDebouncedCallback(updateUrl, 300)
+
+  useEffect(() => () => handleSearch.cancel(), [handleSearch])
+
+  const isSearching = isPending || value !== q
 
   const handleClearInput = () => {
-    if (inputRef.current) {
-      inputRef.current.value = ""
-      handleSearch("")
-    }
+    handleSearch.cancel()
+    setValue("")
+    updateUrl("")
+    inputRef.current?.focus()
   }
 
   return (
@@ -55,18 +71,19 @@ export default function SearchPokemon() {
         className="h-8 w-[160px] pl-8 lg:w-[250px]"
         placeholder="Search..."
         aria-label="Search Pokemon"
+        value={value}
         onChange={(e) => {
+          setValue(e.target.value)
           handleSearch(e.target.value)
         }}
-        defaultValue={q}
         onKeyDown={(e) => {
           if (e.key === "Escape") {
-            inputRef?.current?.blur()
+            inputRef.current?.blur()
           }
         }}
         ref={inputRef}
       />
-      {q && (
+      {(value || q) && (
         <InputGroupAddon align="inline-end">
           <InputGroupButton
             size="icon-xs"
