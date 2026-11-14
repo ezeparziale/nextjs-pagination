@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Geist } from "next/font/google"
+import { Geist, Geist_Mono, Inter } from "next/font/google"
 
 import { cn } from "cn"
 
@@ -7,7 +7,19 @@ import Navbar from "./_components/navbar/navbar"
 import Providers from "./_components/providers"
 import "./globals.css"
 
-const font = Geist({ subsets: ["latin"] })
+const geistHeading = Geist({ subsets: ["latin"], variable: "--font-heading" })
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+})
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+})
 
 export const metadata: Metadata = {
   title: "Nextjs app with pagination",
@@ -16,16 +28,27 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={cn("bg-background min-h-screen antialiased", font.className)}>
-        <div className="relative flex min-h-screen flex-col">
-          <Providers>
-            <Navbar />
-            <div className="container mx-auto max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
-              {children}
-            </div>
-          </Providers>
-        </div>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn(
+        "bg-background",
+        "h-full",
+        "antialiased",
+        geistSans.variable,
+        geistMono.variable,
+        "font-sans",
+        inter.variable,
+        geistHeading.variable,
+      )}
+    >
+      <body className="flex min-h-full flex-col">
+        <Providers>
+          <Navbar />
+          <div className="container mx-auto max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   )
