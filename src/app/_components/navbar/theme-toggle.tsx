@@ -20,7 +20,11 @@ export function ThemeToggle() {
   }
 
   return (
-    <div className="flex flex-row items-center space-x-1 rounded-full border p-1">
+    <div
+      className="flex flex-row items-center space-x-1 rounded-full border p-1"
+      role="group"
+      aria-label="Theme"
+    >
       {[
         { name: "light", icon: SunIcon, label: "Light theme" },
         { name: "system", icon: LaptopMinimalIcon, label: "System theme" },
@@ -28,10 +32,10 @@ export function ThemeToggle() {
       ].map(({ name, icon: Icon, label }) => (
         <button
           key={name}
+          type="button"
           className={cn("rounded-full p-1", theme === name && "bg-muted-foreground/20")}
           onClick={() => setTheme(name)}
-          role="radio"
-          aria-checked={theme === name}
+          aria-pressed={theme === name}
           aria-label={label}
         >
           <Icon className="size-4 transition-all" aria-hidden="true" />

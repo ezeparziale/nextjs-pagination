@@ -14,6 +14,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -44,6 +45,7 @@ export default function MobileNav({ navigation }: { navigation: INavigation[] })
               <SheetTitle className="flex justify-start">
                 <Logo />
               </SheetTitle>
+              <SheetDescription className="sr-only">Main navigation</SheetDescription>
             </SheetHeader>
             <div className="flex-1 overflow-y-auto py-6">
               <ul className="flex flex-col gap-1 px-4">

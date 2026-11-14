@@ -69,7 +69,10 @@ export default function InfiniteCardList({ initialData, search, limit }: IProps)
         ))}
       </PokemonGrid>
       {error ? (
-        <div className="mt-6 flex flex-col items-center justify-center gap-2">
+        <div
+          className="mt-6 flex flex-col items-center justify-center gap-2"
+          role="alert"
+        >
           <p className="text-muted-foreground text-sm">Failed to load more Pokemons.</p>
           <Button variant="outline" size="sm" onClick={() => loadMoreData()}>
             Retry
@@ -80,8 +83,14 @@ export default function InfiniteCardList({ initialData, search, limit }: IProps)
           key={sentinelKey}
           ref={ref}
           className="mt-6 flex h-12 items-center justify-center"
+          role="status"
         >
-          {isLoading && <Loader2 className="animate-spin" size={32} />}
+          {isLoading && (
+            <>
+              <Loader2 className="animate-spin" size={32} aria-hidden="true" />
+              <span className="sr-only">Loading more Pokemons</span>
+            </>
+          )}
         </div>
       ) : (
         <p className="text-muted-foreground mt-6 text-center text-sm">

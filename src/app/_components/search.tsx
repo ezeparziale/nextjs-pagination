@@ -49,11 +49,12 @@ export default function SearchPokemon() {
   return (
     <InputGroup className="h-8 max-w-sm min-w-[150px] flex-1 lg:w-[250px]">
       <InputGroupAddon align="inline-start" className="cursor-default">
-        {isSearching ? <Spinner /> : <SearchIcon />}
+        {isSearching ? <Spinner /> : <SearchIcon aria-hidden="true" />}
       </InputGroupAddon>
       <InputGroupInput
         className="h-8 w-[160px] pl-8 lg:w-[250px]"
         placeholder="Search..."
+        aria-label="Search Pokemon"
         onChange={(e) => {
           handleSearch(e.target.value)
         }}
@@ -67,8 +68,13 @@ export default function SearchPokemon() {
       />
       {q && (
         <InputGroupAddon align="inline-end">
-          <InputGroupButton size="icon-xs" variant="ghost" onClick={handleClearInput}>
-            <XIcon className="text-muted-foreground size-4" />
+          <InputGroupButton
+            size="icon-xs"
+            variant="ghost"
+            onClick={handleClearInput}
+            aria-label="Clear search"
+          >
+            <XIcon className="text-muted-foreground size-4" aria-hidden="true" />
           </InputGroupButton>
         </InputGroupAddon>
       )}
