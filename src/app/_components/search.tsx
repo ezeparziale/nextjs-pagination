@@ -68,7 +68,7 @@ export default function SearchPokemon() {
         {isSearching ? <Spinner /> : <SearchIcon aria-hidden="true" />}
       </InputGroupAddon>
       <InputGroupInput
-        className="h-8 pl-8"
+        className="h-8 pl-8 text-sm"
         placeholder="Search..."
         aria-label="Search Pokemon"
         value={value}
