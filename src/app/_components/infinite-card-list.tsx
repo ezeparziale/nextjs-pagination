@@ -23,7 +23,7 @@ export default function InfiniteCardList({ initialData, search, limit }: IProps)
 
   async function loadMoreData() {
     const next = page + 1
-    const offset = next * limit
+    const offset = page * limit
     const { data: newData } = await GetPokemons({ search, offset, limit })
 
     if (newData.length) {
