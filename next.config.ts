@@ -6,6 +6,16 @@ const nextConfig: NextConfig = {
     qualities: [75, 100],
   },
   typedRoutes: true,
+  cacheComponents: false,
+  partialPrefetching: false,
+  turbopack: {
+    rules: {
+      "*.css": {
+        loaders: ["@tailwindcss/turbopack"],
+        as: "*.css",
+      },
+    },
+  },
 }
 
 export default nextConfig
