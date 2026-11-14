@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation"
+
 import { Suspense } from "react"
 
 import { clampLimit, clampPage } from "@/lib/pagination"
@@ -22,6 +24,15 @@ export default async function ServerPaginationPage(props: {
   const offset = (currentPage - 1) * limit
 
   const { data, totalPages } = await GetPokemons({ offset, limit, search })
+
+  if (totalPages > 0 && currentPage > totalPages) {
+    const params = new URLSearchParams()
+    if (search) params.set("query", search)
+    if (searchParams?.limit) params.set("limit", String(limit))
+    params.set("page", String(totalPages))
+
+    redirect(`/server-pagination?${params.toString()}`)
+  }
 
   return (
     <>
