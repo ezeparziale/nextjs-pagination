@@ -5,9 +5,10 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 interface IPokemon {
   id: number
   name: string
+  priority?: boolean
 }
 
-export default function PokemonCard({ id, name }: IPokemon) {
+export default function PokemonCard({ id, name, priority = false }: IPokemon) {
   return (
     <>
       <Card>
@@ -21,9 +22,11 @@ export default function PokemonCard({ id, name }: IPokemon) {
             alt={name}
             className="mx-auto"
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
-            width="100"
-            height="100"
+            width={100}
+            height={100}
+            sizes="100px"
             quality={75}
+            priority={priority}
           />
         </CardContent>
       </Card>

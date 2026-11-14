@@ -6,8 +6,8 @@ import PokemonGrid from "./pokemon-grid"
 export default async function CardList({ data }: { data: Pokemon[] }) {
   return (
     <PokemonGrid>
-      {data.map((p) => (
-        <PokemonCard key={p.id} id={p.id} name={p.name} />
+      {data.map((p, index) => (
+        <PokemonCard key={p.id} id={p.id} name={p.name} priority={index < 5} />
       ))}
     </PokemonGrid>
   )

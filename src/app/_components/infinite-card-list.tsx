@@ -64,8 +64,8 @@ export default function InfiniteCardList({ initialData, search, limit }: IProps)
   return (
     <>
       <PokemonGrid>
-        {data.map((p) => (
-          <PokemonCard key={p.id} id={p.id} name={p.name} />
+        {data.map((p, index) => (
+          <PokemonCard key={p.id} id={p.id} name={p.name} priority={index < 5} />
         ))}
       </PokemonGrid>
       {error ? (
