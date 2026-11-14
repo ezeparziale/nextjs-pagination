@@ -1,27 +1,30 @@
 "use server"
 
 import { db } from "@/lib/db"
+import { DEFAULT_PAGE_SIZE, clampLimit, clampOffset } from "@/lib/pagination"
 
 export async function GetPokemons({
   search,
   offset = 0,
-  limit = 20,
+  limit = DEFAULT_PAGE_SIZE,
 }: {
   search?: string | undefined
   offset?: number
   limit?: number
 }) {
+  const safeLimit = clampLimit(limit)
+  const safeOffset = clampOffset(offset)
+  const where = { name: { contains: search, mode: "insensitive" as const } }
+
   const data = await db.pokemon.findMany({
-    where: { name: { contains: search, mode: "insensitive" } },
+    where,
     orderBy: { id: "asc" },
-    skip: offset,
-    take: limit,
+    skip: safeOffset,
+    take: safeLimit,
   })
 
-  const totalCount = await db.pokemon.count({
-    where: { name: { contains: search, mode: "insensitive" } },
-  })
-  const totalPages = Math.ceil(totalCount / limit)
+  const totalCount = await db.pokemon.count({ where })
+  const totalPages = Math.ceil(totalCount / safeLimit)
 
   return { data, totalCount, totalPages }
 }

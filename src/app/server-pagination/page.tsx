@@ -1,5 +1,7 @@
 import { Suspense } from "react"
 
+import { clampLimit, clampPage } from "@/lib/pagination"
+
 import { GetPokemons } from "../_actions"
 import CardList from "../_components/card-list"
 import Pagination from "../_components/pagination"
@@ -15,8 +17,8 @@ export default async function ServerPaginationPage(props: {
 }) {
   const searchParams = await props.searchParams
   const search = searchParams?.query || ""
-  const currentPage = Number(searchParams?.page) || 1
-  const limit = Number(searchParams?.limit) || 20
+  const currentPage = clampPage(Number(searchParams?.page))
+  const limit = clampLimit(Number(searchParams?.limit))
   const offset = (currentPage - 1) * limit
 
   const { data, totalPages } = await GetPokemons({ offset, limit, search })
