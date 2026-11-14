@@ -6,6 +6,8 @@ import type { Pokemon } from "@/generated/prisma/client"
 import { Loader2 } from "lucide-react"
 import { useOnInView } from "react-intersection-observer"
 
+import { Button } from "@/components/ui/button"
+
 import { GetPokemons } from "../_actions"
 import PokemonCard from "./card"
 
@@ -18,28 +20,39 @@ interface IProps {
 export default function InfiniteCardList({ initialData, search, limit }: IProps) {
   const [data, setData] = useState(initialData)
   const [page, setPage] = useState(1)
-  const [isDisable, setDisable] = useState(false)
-  const isLoadingRef = useRef(false)
+  const [hasMore, setHasMore] = useState(initialData.length >= limit)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [sentinelKey, setSentinelKey] = useState(0)
+  const isFetchingRef = useRef(false)
 
   const loadMoreData = useCallback(async () => {
-    if (isLoadingRef.current || isDisable) return
-    isLoadingRef.current = true
+    if (isFetchingRef.current || !hasMore) return
+    isFetchingRef.current = true
+    setIsLoading(true)
+    setError(false)
 
     try {
       const next = page + 1
       const offset = page * limit
       const { data: newData } = await GetPokemons({ search, offset, limit })
 
+      if (newData.length < limit) {
+        setHasMore(false)
+      }
+
       if (newData.length) {
         setPage(next)
         setData((prev: Pokemon[]) => [...prev, ...newData])
-      } else {
-        setDisable(true)
+        setSentinelKey((key) => key + 1)
       }
+    } catch {
+      setError(true)
     } finally {
-      isLoadingRef.current = false
+      isFetchingRef.current = false
+      setIsLoading(false)
     }
-  }, [isDisable, page, limit, search])
+  }, [hasMore, page, limit, search])
 
   const ref = useOnInView((inView) => {
     if (inView) {
@@ -54,12 +67,25 @@ export default function InfiniteCardList({ initialData, search, limit }: IProps)
           <PokemonCard key={p.id} id={p.id} name={p.name} />
         ))}
       </div>
-      {!isDisable ? (
-        <div ref={ref} className="mt-6 flex flex-col items-center justify-center">
-          <Loader2 className="animate-spin" size={48} />
+      {error ? (
+        <div className="mt-6 flex flex-col items-center justify-center gap-2">
+          <p className="text-muted-foreground text-sm">Failed to load more Pokemons.</p>
+          <Button variant="outline" size="sm" onClick={() => loadMoreData()}>
+            Retry
+          </Button>
+        </div>
+      ) : hasMore ? (
+        <div
+          key={sentinelKey}
+          ref={ref}
+          className="mt-6 flex h-12 items-center justify-center"
+        >
+          {isLoading && <Loader2 className="animate-spin" size={32} />}
         </div>
       ) : (
-        <></>
+        <p className="text-muted-foreground mt-6 text-center text-sm">
+          No more results.
+        </p>
       )}
     </>
   )
