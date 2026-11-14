@@ -33,6 +33,7 @@ export default function SearchPokemon() {
         params.set("page", "1")
       } else {
         params.delete("query")
+        params.delete("page")
       }
       replace(`${pathname}?${params.toString()}` as Route)
     })
