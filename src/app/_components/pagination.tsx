@@ -4,7 +4,7 @@ import { Route } from "next"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
 
-import { cn } from "@/lib/utils"
+import { cn } from "cn"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 import { Button } from "@/components/ui/button"

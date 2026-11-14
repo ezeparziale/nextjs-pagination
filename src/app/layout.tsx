@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Geist } from "next/font/google"
 
-import { cn } from "@/lib/utils"
+import { cn } from "cn"
 
 import Navbar from "./_components/navbar/navbar"
 import Providers from "./_components/providers"
