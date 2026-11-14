@@ -1,3 +1,4 @@
+import { Route } from "next"
 import { redirect } from "next/navigation"
 
 import { Suspense } from "react"
@@ -19,19 +20,28 @@ export default async function ServerPaginationPage(props: {
 }) {
   const searchParams = await props.searchParams
   const search = searchParams?.query || ""
-  const currentPage = clampPage(Number(searchParams?.page))
+  const parsedPage = Number(searchParams?.page)
+  const currentPage = clampPage(parsedPage)
   const limit = clampLimit(Number(searchParams?.limit))
   const offset = (currentPage - 1) * limit
+
+  const buildPageUrl = (page: number) => {
+    const params = new URLSearchParams()
+    if (search) params.set("query", search)
+    if (searchParams?.limit) params.set("limit", String(limit))
+    params.set("page", String(page))
+
+    return `/server-pagination?${params.toString()}` as Route
+  }
+
+  if (searchParams?.page !== undefined && currentPage !== parsedPage) {
+    redirect(buildPageUrl(1))
+  }
 
   const { data, totalPages } = await GetPokemons({ offset, limit, search })
 
   if (totalPages > 0 && currentPage > totalPages) {
-    const params = new URLSearchParams()
-    if (search) params.set("query", search)
-    if (searchParams?.limit) params.set("limit", String(limit))
-    params.set("page", String(totalPages))
-
-    redirect(`/server-pagination?${params.toString()}`)
+    redirect(buildPageUrl(totalPages))
   }
 
   return (
