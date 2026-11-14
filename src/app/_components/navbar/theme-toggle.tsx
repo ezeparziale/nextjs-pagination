@@ -6,6 +6,12 @@ import { cn } from "@/lib/utils"
 import { LaptopMinimalIcon, MoonIcon, SunIcon } from "lucide-react"
 import { useTheme } from "next-themes"
 
+const themes = [
+  { name: "light", icon: SunIcon, label: "Light theme" },
+  { name: "system", icon: LaptopMinimalIcon, label: "System theme" },
+  { name: "dark", icon: MoonIcon, label: "Dark theme" },
+]
+
 export function ThemeToggle() {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
@@ -16,7 +22,16 @@ export function ThemeToggle() {
   }, [])
 
   if (!mounted) {
-    return null
+    return (
+      <div
+        className="flex flex-row items-center space-x-1 rounded-full border p-1"
+        aria-hidden="true"
+      >
+        {themes.map(({ name }) => (
+          <span key={name} className="size-6 rounded-full" />
+        ))}
+      </div>
+    )
   }
 
   return (
@@ -25,11 +40,7 @@ export function ThemeToggle() {
       role="group"
       aria-label="Theme"
     >
-      {[
-        { name: "light", icon: SunIcon, label: "Light theme" },
-        { name: "system", icon: LaptopMinimalIcon, label: "System theme" },
-        { name: "dark", icon: MoonIcon, label: "Dark theme" },
-      ].map(({ name, icon: Icon, label }) => (
+      {themes.map(({ name, icon: Icon, label }) => (
         <button
           key={name}
           type="button"
