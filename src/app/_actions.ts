@@ -12,14 +12,14 @@ export async function GetPokemons({
   limit?: number
 }) {
   const data = await db.pokemon.findMany({
-    where: { name: { contains: search } },
+    where: { name: { contains: search, mode: "insensitive" } },
     orderBy: { id: "asc" },
     skip: offset,
     take: limit,
   })
 
   const totalCount = await db.pokemon.count({
-    where: { name: { contains: search } },
+    where: { name: { contains: search, mode: "insensitive" } },
   })
   const totalPages = Math.ceil(totalCount / limit)
 
