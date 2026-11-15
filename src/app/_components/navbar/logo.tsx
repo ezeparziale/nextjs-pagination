@@ -5,9 +5,9 @@ export default function Logo() {
     <div className="flex items-center justify-center">
       <Link href="/">
         <div className="flex items-center space-x-2">
-          <span className="sr-only">Pokemons</span>
+          <span className="sr-only">Pagination</span>
           <p className="hidden font-extrabold tracking-tight antialiased sm:text-sm md:block md:text-3xl lg:text-5xl">
-            Pokemons
+            Pagination
           </p>
         </div>
       </Link>
