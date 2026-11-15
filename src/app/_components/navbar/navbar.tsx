@@ -8,6 +8,7 @@ export interface INavigation {
 const navigation: INavigation[] = [
   { name: "Server pagination", href: "/server-pagination" },
   { name: "Infinite scroll", href: "/infinite-scroll" },
+  { name: "Pagination advance", href: "/pagination-advance/server" },
 ]
 
 export default function Navbar() {
