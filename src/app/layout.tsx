@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono, Inter } from "next/font/google"
 
+import type { ReactNode } from "react"
+
 import { cn } from "cn"
 
 import Navbar from "./_components/navbar/navbar"
@@ -26,7 +28,13 @@ export const metadata: Metadata = {
   description: "Demo pagination",
 }
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+  modal,
+}: {
+  children: ReactNode
+  modal: ReactNode
+}) {
   return (
     <html
       lang="en"
@@ -48,6 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <div className="container mx-auto max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
             {children}
           </div>
+          {modal}
         </Providers>
       </body>
     </html>

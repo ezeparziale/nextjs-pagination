@@ -1,4 +1,8 @@
+import type { Route } from "next"
 import Image from "next/image"
+import Link from "next/link"
+
+import { getPokemonArtworkUrl } from "@/lib/pokemon"
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
@@ -10,8 +14,12 @@ interface IPokemon {
 
 export default function PokemonCard({ id, name, priority = false }: IPokemon) {
   return (
-    <>
-      <Card>
+    <Link
+      href={`/pokemon/${id}` as Route}
+      aria-label={`View ${name} details`}
+      className="focus-visible:ring-ring/50 block rounded-lg focus-visible:ring-3 focus-visible:outline-none"
+    >
+      <Card className="h-full transition-shadow hover:shadow-md">
         <CardHeader>
           <div className="mt-2 flex justify-center">
             <h2 className="text-2xl font-bold">{name}</h2>
@@ -19,9 +27,9 @@ export default function PokemonCard({ id, name, priority = false }: IPokemon) {
         </CardHeader>
         <CardContent>
           <Image
-            alt={name}
+            alt=""
             className="mx-auto"
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
+            src={getPokemonArtworkUrl(id)}
             width={100}
             height={100}
             sizes="100px"
@@ -30,6 +38,6 @@ export default function PokemonCard({ id, name, priority = false }: IPokemon) {
           />
         </CardContent>
       </Card>
-    </>
+    </Link>
   )
 }
