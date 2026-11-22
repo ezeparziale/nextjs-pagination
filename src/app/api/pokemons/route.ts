@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server"
 
-import { getPokemonsPage } from "@/app/pagination-advance/_lib/query-pokemons"
-import { parseTableQuery } from "@/app/pagination-advance/_lib/table-params"
+import { getPokemonsPage } from "@/data/pokemons"
+import { parseTableQuery } from "@/data/pokemon-table-params"
 
 export async function GET(request: NextRequest) {
   const query = parseTableQuery(request.nextUrl.searchParams)

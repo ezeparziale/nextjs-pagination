@@ -12,7 +12,10 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-import { PAGE_SIZE_OPTIONS } from "../_lib/table-params"
+import {
+  DEFAULT_PAGE_SIZE,
+  PAGE_SIZE_OPTIONS,
+} from "@/data/pokemon-table-params"
 import type { DataTableFeatures } from "./data-table-features"
 
 interface DataTablePaginationProps<TData extends RowData> {
@@ -59,13 +62,15 @@ export function DataTablePagination<TData extends RowData>({
           </label>
           <Select
             value={String(pageSize)}
-            onValueChange={(value) => table.setPageSize(Number(value))}
+            onValueChange={(value) =>
+              table.setPageSize(Number(value ?? DEFAULT_PAGE_SIZE))
+            }
           >
             <SelectTrigger id="rows-per-page" size="sm" className="w-[72px]">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {PAGE_SIZE_OPTIONS.map((size) => (
+              {PAGE_SIZE_OPTIONS.map((size: number) => (
                 <SelectItem key={size} value={String(size)}>
                   {size}
                 </SelectItem>

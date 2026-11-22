@@ -1,6 +1,6 @@
 import { MixDataTable } from "../_components/mix-data-table"
-import { getPokemonsPage } from "../_lib/query-pokemons"
-import { parseTableQuery } from "../_lib/table-params"
+import { getPokemonsPage } from "@/data/pokemons"
+import { parseTableQuery } from "@/data/pokemon-table-params"
 
 export default async function MixPaginationAdvancePage(props: {
   searchParams?: Promise<Record<string, string | string[] | undefined>>

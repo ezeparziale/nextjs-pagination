@@ -1,28 +1,30 @@
-import { clampPage } from "@/lib/pagination"
 import type {
   ColumnFiltersState,
   PaginationState,
   SortingState,
 } from "@tanstack/react-table"
 
+import { clampPage } from "@/lib/pagination"
+
 import {
   DEFAULT_ORDER,
   DEFAULT_SORT,
+  SORT_FIELDS,
+  STAT_FIELDS,
   type PokemonFilters,
   type PokemonQuery,
   type RangeFilter,
-  SORT_FIELDS,
-  STAT_FIELDS,
   type SortDir,
   type SortField,
   type StatField,
-} from "../types"
+} from "@/app/pagination-advance/types"
 
 export const PAGE_SIZE_OPTIONS = [10, 20, 50] as const
 export const DEFAULT_PAGE_SIZE = 20
 
 export type SearchParamsInput =
-  URLSearchParams | Record<string, string | string[] | undefined>
+  | URLSearchParams
+  | Record<string, string | string[] | undefined>
 
 function toURLSearchParams(input: SearchParamsInput): URLSearchParams {
   if (input instanceof URLSearchParams) return input

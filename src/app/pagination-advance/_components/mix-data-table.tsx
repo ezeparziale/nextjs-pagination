@@ -7,11 +7,11 @@ import { type SortingState, useTable } from "@tanstack/react-table"
 import {
   buildTableSearchParams,
   columnFiltersToFilters,
-  paginationToPage,
   queryToColumnFilters,
   queryToPagination,
   queryToSorting,
-} from "../_lib/table-params"
+  paginationToPage,
+} from "@/data/pokemon-table-params"
 import {
   DEFAULT_ORDER,
   DEFAULT_SORT,

@@ -1,5 +1,5 @@
 import { ClientDataTable } from "../_components/client-data-table"
-import { getAllPokemons } from "../_lib/query-pokemons"
+import { getAllPokemons } from "@/data/pokemons"
 
 export default async function ClientPaginationAdvancePage() {
   const data = await getAllPokemons()

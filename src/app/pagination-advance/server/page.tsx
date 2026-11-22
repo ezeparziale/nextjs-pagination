@@ -2,8 +2,8 @@ import { Route } from "next"
 import { redirect } from "next/navigation"
 
 import { ServerDataTable } from "../_components/server-data-table"
-import { getPokemonsPage } from "../_lib/query-pokemons"
-import { buildTableSearchParams, parseTableQuery } from "../_lib/table-params"
+import { getPokemonsPage } from "@/data/pokemons"
+import { buildTableSearchParams, parseTableQuery } from "@/data/pokemon-table-params"
 
 export default async function ServerPaginationAdvancePage(props: {
   searchParams?: Promise<Record<string, string | string[] | undefined>>
