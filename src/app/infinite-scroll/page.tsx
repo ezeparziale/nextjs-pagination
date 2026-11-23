@@ -8,6 +8,7 @@ import { pokemonSearchParamsSchema } from "@/lib/validation"
 
 import { buttonVariants } from "@/components/ui/button"
 
+import BackToTop from "../_components/back-to-top"
 import EmptyState from "../_components/empty-state"
 import InfiniteCardList from "../_components/infinite-card-list"
 import SearchPokemon from "../_components/search"
@@ -50,13 +51,14 @@ export default async function InfiniteScrollPage(props: {
   }
 
   return (
-    <>
+    <div className="pb-20">
+      <BackToTop />
       <div className="mb-3">
         <SearchPokemon />
       </div>
       <Suspense key={search} fallback={<SkeletonCardList count={limit} />}>
         <InfiniteCardList search={search} initialData={initialData} limit={limit} />
       </Suspense>
-    </>
+    </div>
   )
 }
