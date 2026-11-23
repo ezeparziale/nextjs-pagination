@@ -2,6 +2,8 @@ import type { Route } from "next"
 import Image from "next/image"
 import Link from "next/link"
 
+import type { CSSProperties } from "react"
+
 import { getPokemonArtworkUrl } from "@/lib/pokemon"
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
@@ -10,14 +12,21 @@ interface IPokemon {
   id: number
   name: string
   priority?: boolean
+  staggerIndex?: number
 }
 
-export default function PokemonCard({ id, name, priority = false }: IPokemon) {
+export default function PokemonCard({
+  id,
+  name,
+  priority = false,
+  staggerIndex = 0,
+}: IPokemon) {
   return (
     <Link
       href={`/pokemon/${id}` as Route}
       aria-label={`View ${name} details`}
-      className="focus-visible:ring-ring/50 block rounded-lg focus-visible:ring-3 focus-visible:outline-none"
+      className="pokemon-card-enter focus-visible:ring-ring/50 block rounded-lg focus-visible:ring-3 focus-visible:outline-none"
+      style={{ "--stagger-index": staggerIndex } as CSSProperties}
     >
       <Card className="h-full transition-shadow hover:shadow-md">
         <CardHeader>
