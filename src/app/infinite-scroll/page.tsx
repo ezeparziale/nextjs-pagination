@@ -3,6 +3,7 @@ import Link from "next/link"
 
 import { Suspense } from "react"
 
+import { createPageMetadata } from "@/lib/metadata"
 import { getEmptySearchMessage } from "@/lib/search"
 import { pokemonSearchParamsSchema } from "@/lib/validation"
 
@@ -14,6 +15,13 @@ import InfiniteCardList from "../_components/infinite-card-list"
 import SearchPokemon from "../_components/search"
 import SkeletonCardList from "../_components/skeleton"
 import { getPokemons } from "../pokemon/actions"
+
+export const metadata = createPageMetadata({
+  title: "Infinite scroll",
+  description:
+    "Load more Pokemons automatically as you scroll with an intersection observer.",
+  path: "/infinite-scroll",
+})
 
 export default async function InfiniteScrollPage(props: {
   searchParams?: Promise<{

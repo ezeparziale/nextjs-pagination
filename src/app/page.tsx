@@ -1,6 +1,7 @@
 import { Route } from "next"
 import Link from "next/link"
 
+import { createPageMetadata } from "@/lib/metadata"
 import {
   Infinity as InfinityIcon,
   ArrowRight,
@@ -52,6 +53,13 @@ const demos = [
     ],
   },
 ] as const
+
+export const metadata = createPageMetadata({
+  title: "Home",
+  description:
+    "Explore server pagination, infinite scroll and a full-featured data table with Next.js 16.",
+  path: "/",
+})
 
 export default function HomePage() {
   return (

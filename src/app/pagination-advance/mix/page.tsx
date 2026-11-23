@@ -1,6 +1,15 @@
-import { MixDataTable } from "../_components/mix-data-table"
-import { getPokemonsPage } from "@/data/pokemons"
 import { parseTableQuery } from "@/data/pokemon-table-params"
+import { getPokemonsPage } from "@/data/pokemons"
+import { createPageMetadata } from "@/lib/metadata"
+
+import { MixDataTable } from "../_components/mix-data-table"
+
+export const metadata = createPageMetadata({
+  title: "Hybrid table",
+  description:
+    "Server-rendered first view with client-side API requests and a shareable URL.",
+  path: "/pagination-advance/mix",
+})
 
 export default async function MixPaginationAdvancePage(props: {
   searchParams?: Promise<Record<string, string | string[] | undefined>>

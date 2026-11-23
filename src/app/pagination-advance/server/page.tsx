@@ -3,8 +3,15 @@ import { redirect } from "next/navigation"
 
 import { buildTableSearchParams, parseTableQuery } from "@/data/pokemon-table-params"
 import { getPokemonsPage } from "@/data/pokemons"
+import { createPageMetadata } from "@/lib/metadata"
 
 import { ServerDataTable } from "../_components/server-data-table"
+
+export const metadata = createPageMetadata({
+  title: "Server-side table",
+  description: "Server-side sorting, filters and pagination with a shareable URL.",
+  path: "/pagination-advance/server",
+})
 
 export default async function ServerPaginationAdvancePage(props: {
   searchParams?: Promise<Record<string, string | string[] | undefined>>

@@ -3,6 +3,14 @@ import { Geist, Geist_Mono, Inter } from "next/font/google"
 
 import type { ReactNode } from "react"
 
+import {
+  SITE_BASE_URL,
+  SITE_DESCRIPTION,
+  SITE_LANGUAGE,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/site"
 import { cn } from "cn"
 
 import Navbar from "./_components/navbar/navbar"
@@ -24,8 +32,30 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Nextjs app with pagination",
-  description: "Demo pagination",
+  metadataBase: SITE_BASE_URL,
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  openGraph: {
+    type: "website",
+    locale: SITE_LOCALE,
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+  },
+  twitter: {
+    card: "summary",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({
@@ -37,7 +67,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
+      lang={SITE_LANGUAGE}
       suppressHydrationWarning
       className={cn(
         "bg-background",

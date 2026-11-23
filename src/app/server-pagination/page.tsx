@@ -4,6 +4,7 @@ import { redirect } from "next/navigation"
 
 import { Suspense } from "react"
 
+import { createPageMetadata } from "@/lib/metadata"
 import { getEmptySearchMessage } from "@/lib/search"
 import { pokemonSearchParamsSchema } from "@/lib/validation"
 
@@ -15,6 +16,12 @@ import Pagination from "../_components/pagination"
 import SearchPokemon from "../_components/search"
 import SkeletonCardList from "../_components/skeleton"
 import { getPokemons } from "../pokemon/actions"
+
+export const metadata = createPageMetadata({
+  title: "Server pagination",
+  description: "Offset pagination with shareable URLs, server-side queries and search.",
+  path: "/server-pagination",
+})
 
 export default async function ServerPaginationPage(props: {
   searchParams?: Promise<{

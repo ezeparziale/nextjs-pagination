@@ -1,10 +1,11 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
+import { getPokemonById } from "@/data/pokemon"
+import { getPokemonMetadata } from "@/lib/metadata"
 import { getPokemonTypes, parsePokemonId } from "@/lib/pokemon"
 
 import PokemonDetail from "../_components/pokemon-detail"
-import { getPokemonById } from "@/data/pokemon"
 
 interface PokemonPageProps {
   params: Promise<{ id: string }>
@@ -21,10 +22,7 @@ export async function generateMetadata({
     return { title: "Pokemon not found" }
   }
 
-  return {
-    title: `${pokemon.name} | Pokemon details`,
-    description: `Base stats, height, weight and types of ${pokemon.name}.`,
-  }
+  return getPokemonMetadata(pokemon)
 }
 
 export default async function PokemonPage({ params }: PokemonPageProps) {

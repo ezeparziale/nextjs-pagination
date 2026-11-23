@@ -1,5 +1,13 @@
-import { ClientDataTable } from "../_components/client-data-table"
 import { getAllPokemons } from "@/data/pokemons"
+import { createPageMetadata } from "@/lib/metadata"
+
+import { ClientDataTable } from "../_components/client-data-table"
+
+export const metadata = createPageMetadata({
+  title: "Client-side table",
+  description: "In-memory sorting, filters and pagination with TanStack Table.",
+  path: "/pagination-advance/client",
+})
 
 export default async function ClientPaginationAdvancePage() {
   const data = await getAllPokemons()
