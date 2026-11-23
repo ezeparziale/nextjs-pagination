@@ -5,16 +5,17 @@ import { usePathname, useRouter } from "next/navigation"
 
 import { useCallback, useTransition } from "react"
 
-import { type SortingState, useTable } from "@tanstack/react-table"
-
 import {
   buildTableSearchParams,
   columnFiltersToFilters,
+  paginationToPage,
   queryToColumnFilters,
   queryToPagination,
   queryToSorting,
-  paginationToPage,
 } from "@/data/pokemon-table-params"
+import { getEmptySearchMessage } from "@/lib/search"
+import { type SortingState, useTable } from "@tanstack/react-table"
+
 import {
   DEFAULT_ORDER,
   DEFAULT_SORT,
@@ -99,6 +100,7 @@ export function ServerDataTable({ query, result }: ServerDataTableProps) {
     <DataTable
       table={table}
       isLoading={isPending}
+      emptyMessage={getEmptySearchMessage(query.filters.name ?? "")}
       toolbar={
         <DataTableToolbar
           table={table}

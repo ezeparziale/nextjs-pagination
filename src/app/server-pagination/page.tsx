@@ -1,11 +1,16 @@
 import { Route } from "next"
+import Link from "next/link"
 import { redirect } from "next/navigation"
 
 import { Suspense } from "react"
 
+import { getEmptySearchMessage } from "@/lib/search"
 import { pokemonSearchParamsSchema } from "@/lib/validation"
 
+import { buttonVariants } from "@/components/ui/button"
+
 import CardList from "../_components/card-list"
+import EmptyState from "../_components/empty-state"
 import Pagination from "../_components/pagination"
 import SearchPokemon from "../_components/search"
 import SkeletonCardList from "../_components/skeleton"
@@ -45,6 +50,30 @@ export default async function ServerPaginationPage(props: {
 
   if (totalPages > 0 && currentPage > totalPages) {
     redirect(buildPageUrl(totalPages))
+  }
+
+  if (data.length === 0) {
+    return (
+      <>
+        <div className="mb-3 flex items-center justify-between gap-2">
+          <SearchPokemon />
+        </div>
+        <EmptyState
+          title="No Pokemons found"
+          description={getEmptySearchMessage(search)}
+          action={
+            search ? (
+              <Link
+                href={"/server-pagination" as Route}
+                className={buttonVariants({ variant: "outline", size: "sm" })}
+              >
+                Clear search
+              </Link>
+            ) : undefined
+          }
+        />
+      </>
+    )
   }
 
   return (

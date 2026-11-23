@@ -2,16 +2,19 @@
 
 import { useCallback, useRef, useState } from "react"
 
-import { type SortingState, useTable } from "@tanstack/react-table"
-
 import {
   buildTableSearchParams,
   columnFiltersToFilters,
+  paginationToPage,
   queryToColumnFilters,
   queryToPagination,
   queryToSorting,
-  paginationToPage,
 } from "@/data/pokemon-table-params"
+import { getEmptySearchMessage } from "@/lib/search"
+import { type SortingState, useTable } from "@tanstack/react-table"
+
+import { Button } from "@/components/ui/button"
+
 import {
   DEFAULT_ORDER,
   DEFAULT_SORT,
@@ -116,15 +119,19 @@ export function MixDataTable({ initialQuery, initialResult }: MixDataTableProps)
   return (
     <div className="space-y-4">
       {error ? (
-        <p
+        <div
           role="alert"
-          className="text-destructive border-destructive/30 bg-destructive/5 rounded-md border px-3 py-2 text-sm"
+          className="text-destructive border-destructive/30 bg-destructive/5 flex items-center justify-between gap-3 rounded-md border px-3 py-2 text-sm"
         >
-          {error}
-        </p>
+          <p>{error}</p>
+          <Button variant="outline" size="sm" onClick={() => load(query)}>
+            Retry
+          </Button>
+        </div>
       ) : null}
       <DataTable
         table={table}
+        emptyMessage={getEmptySearchMessage(query.filters.name ?? "")}
         isLoading={isLoading}
         toolbar={
           <DataTableToolbar

@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 
+import { DEFAULT_PAGE_SIZE } from "@/data/pokemon-table-params"
+import { getEmptySearchMessage } from "@/lib/search"
 import {
   type ColumnFiltersState,
   type PaginationState,
@@ -9,7 +11,6 @@ import {
   useTable,
 } from "@tanstack/react-table"
 
-import { DEFAULT_PAGE_SIZE } from "@/data/pokemon-table-params"
 import { DEFAULT_SORT, type PokemonRow } from "../types"
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
@@ -45,6 +46,7 @@ export function ClientDataTable({ data }: ClientDataTableProps) {
   return (
     <DataTable
       table={table}
+      emptyMessage={getEmptySearchMessage(searchValue)}
       toolbar={
         <DataTableToolbar
           table={table}

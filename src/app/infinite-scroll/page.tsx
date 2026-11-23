@@ -1,7 +1,14 @@
+import { Route } from "next"
+import Link from "next/link"
+
 import { Suspense } from "react"
 
+import { getEmptySearchMessage } from "@/lib/search"
 import { pokemonSearchParamsSchema } from "@/lib/validation"
 
+import { buttonVariants } from "@/components/ui/button"
+
+import EmptyState from "../_components/empty-state"
 import InfiniteCardList from "../_components/infinite-card-list"
 import SearchPokemon from "../_components/search"
 import SkeletonCardList from "../_components/skeleton"
@@ -17,6 +24,30 @@ export default async function InfiniteScrollPage(props: {
   const search = query ?? ""
 
   const { data: initialData } = await getPokemons({ search, limit })
+
+  if (initialData.length === 0) {
+    return (
+      <>
+        <div className="mb-3">
+          <SearchPokemon />
+        </div>
+        <EmptyState
+          title="No Pokemons found"
+          description={getEmptySearchMessage(search)}
+          action={
+            search ? (
+              <Link
+                href={"/infinite-scroll" as Route}
+                className={buttonVariants({ variant: "outline", size: "sm" })}
+              >
+                Clear search
+              </Link>
+            ) : undefined
+          }
+        />
+      </>
+    )
+  }
 
   return (
     <>

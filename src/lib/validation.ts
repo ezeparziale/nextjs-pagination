@@ -4,9 +4,15 @@ import {
   SORT_FIELDS,
 } from "@/app/pagination-advance/types"
 import { DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, PAGE_SIZE_OPTIONS } from "@/lib/pagination"
+import { MAX_SEARCH_LENGTH } from "@/lib/search"
 import { z } from "zod"
 
-const searchSchema = z.string().trim().max(100).optional().catch(undefined)
+const searchSchema = z
+  .string()
+  .trim()
+  .max(MAX_SEARCH_LENGTH)
+  .optional()
+  .catch(undefined)
 const pageSchema = z.coerce.number().int().positive().catch(1)
 const limitSchema = z.coerce
   .number()
