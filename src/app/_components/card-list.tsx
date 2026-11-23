@@ -1,9 +1,9 @@
-import type { Pokemon } from "@/generated/prisma/client"
+import type { PokemonCardData } from "@/lib/pokemon"
 
 import PokemonCard from "./card"
 import PokemonGrid from "./pokemon-grid"
 
-export default function CardList({ data }: { data: Pokemon[] }) {
+export default function CardList({ data }: { data: PokemonCardData[] }) {
   return (
     <PokemonGrid>
       {data.map((p, index) => (

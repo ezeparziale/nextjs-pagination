@@ -1,7 +1,7 @@
 "use client"
 
-import type { Pokemon } from "@/generated/prisma/client"
 import { useInfinitePokemons } from "@/hooks/use-infinite-pokemons"
+import type { PokemonCardData } from "@/lib/pokemon"
 import { Loader2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -10,7 +10,7 @@ import PokemonCard from "./card"
 import PokemonGrid from "./pokemon-grid"
 
 interface IProps {
-  initialData: Pokemon[]
+  initialData: PokemonCardData[]
   search: string
   limit: number
 }

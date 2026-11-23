@@ -1,4 +1,8 @@
+import type { Pokemon } from "@/generated/prisma/client"
+
 export const POKEMON_DETAIL_TITLE_ID = "pokemon-detail-title"
+
+export type PokemonCardData = Pick<Pokemon, "id" | "name">
 
 interface PokeApiPokemon {
   types?: { type: { name: string } }[]

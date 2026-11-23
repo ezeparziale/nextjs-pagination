@@ -3,11 +3,11 @@
 import { useCallback, useRef, useState } from "react"
 
 import { getPokemons } from "@/app/pokemon/actions"
-import type { Pokemon } from "@/generated/prisma/client"
+import type { PokemonCardData } from "@/lib/pokemon"
 import { useOnInView } from "react-intersection-observer"
 
 interface UseInfinitePokemonsOptions {
-  initialData: Pokemon[]
+  initialData: PokemonCardData[]
   search: string
   limit: number
 }
@@ -42,7 +42,7 @@ export function useInfinitePokemons({
 
       if (newData.length) {
         setPage(next)
-        setData((prev: Pokemon[]) => [...prev, ...newData])
+        setData((prev) => [...prev, ...newData])
         setSentinelKey((key) => key + 1)
       }
     } catch {

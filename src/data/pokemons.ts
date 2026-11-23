@@ -1,19 +1,22 @@
-import "server-only"
-
-import { db } from "@/lib/db"
-import { Prisma } from "@/generated/prisma/client"
-
-export { type PokemonRow, type PokemonQuery, type PokemonPageResult } from "@/app/pagination-advance/types"
-export { STAT_FIELDS } from "@/app/pagination-advance/types"
-
 import type {
   PokemonFilters,
-  PokemonQuery,
   PokemonPageResult,
+  PokemonQuery,
   PokemonRow,
   StatField,
 } from "@/app/pagination-advance/types"
 import { STAT_FIELDS } from "@/app/pagination-advance/types"
+import { Prisma } from "@/generated/prisma/client"
+import { db } from "@/lib/db"
+import type { PokemonCardData } from "@/lib/pokemon"
+import "server-only"
+
+export {
+  type PokemonRow,
+  type PokemonQuery,
+  type PokemonPageResult,
+} from "@/app/pagination-advance/types"
+export { STAT_FIELDS } from "@/app/pagination-advance/types"
 
 function buildPokemonWhere(filters: PokemonFilters): Prisma.PokemonWhereInput {
   const where: Prisma.PokemonWhereInput = {}
@@ -41,12 +44,15 @@ export async function getPokemonsPage(query: PokemonQuery): Promise<PokemonPageR
   const where = buildPokemonWhere(query.filters)
   const skip = (query.page - 1) * query.pageSize
 
+  const orderBy: Prisma.PokemonOrderByWithRelationInput[] = [
+    { [query.sort]: query.order } as Prisma.PokemonOrderByWithRelationInput,
+  ]
+  if (query.sort !== "id") orderBy.push({ id: "asc" })
+
   const [rows, totalCount] = await Promise.all([
     db.pokemon.findMany({
       where,
-      orderBy: {
-        [query.sort]: query.order,
-      } as Prisma.PokemonOrderByWithRelationInput,
+      orderBy,
       skip,
       take: query.pageSize,
     }),
@@ -79,7 +85,7 @@ export async function getPokemonsList({
   search?: string | undefined
   offset: number
   limit: number
-}): Promise<{ data: PokemonRow[]; totalCount: number; totalPages: number }> {
+}): Promise<{ data: PokemonCardData[]; totalCount: number; totalPages: number }> {
   const where: Prisma.PokemonWhereInput = {
     name: { contains: search, mode: "insensitive" },
   }
@@ -87,6 +93,7 @@ export async function getPokemonsList({
   const [data, totalCount] = await Promise.all([
     db.pokemon.findMany({
       where,
+      select: { id: true, name: true },
       orderBy: { id: "asc" },
       skip: offset,
       take: limit,
@@ -96,5 +103,5 @@ export async function getPokemonsList({
 
   const totalPages = Math.ceil(totalCount / limit)
 
-  return { data: data as PokemonRow[], totalCount, totalPages }
+  return { data, totalCount, totalPages }
 }
