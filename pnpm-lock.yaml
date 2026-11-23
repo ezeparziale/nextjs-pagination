@@ -65,6 +65,9 @@ importers:
       use-debounce:
         specifier: 10.1.1
         version: 10.1.1(react@19.3.1)
+      zod:
+        specifier: 4.6.7
+        version: 4.6.7
     devDependencies:
       '@tailwindcss/turbopack':
         specifier: 4.3.5
