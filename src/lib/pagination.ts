@@ -1,5 +1,6 @@
 export const DEFAULT_PAGE_SIZE = 20
 export const MAX_PAGE_SIZE = 100
+export const PAGE_SIZE_OPTIONS = [10, 20, 50] as const
 
 export function clampPage(page: number): number {
   return Number.isInteger(page) && page > 0 ? page : 1

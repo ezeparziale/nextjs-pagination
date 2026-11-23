@@ -1,9 +1,11 @@
 import { Suspense } from "react"
 
-import { GetPokemons } from "../_actions"
+import { pokemonSearchParamsSchema } from "@/lib/validation"
+
 import InfiniteCardList from "../_components/infinite-card-list"
 import SearchPokemon from "../_components/search"
 import SkeletonCardList from "../_components/skeleton"
+import { getPokemons } from "../pokemon/actions"
 
 export default async function InfiniteScrollPage(props: {
   searchParams?: Promise<{
@@ -11,10 +13,10 @@ export default async function InfiniteScrollPage(props: {
   }>
 }) {
   const searchParams = await props.searchParams
-  const search = searchParams?.query || ""
-  const limit = 20
+  const { query, limit } = pokemonSearchParamsSchema.parse(searchParams ?? {})
+  const search = query ?? ""
 
-  const { data: initialData } = await GetPokemons({ search, limit })
+  const { data: initialData } = await getPokemons({ search, limit })
 
   return (
     <>

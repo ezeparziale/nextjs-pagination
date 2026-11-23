@@ -3,13 +3,13 @@ import { redirect } from "next/navigation"
 
 import { Suspense } from "react"
 
-import { clampLimit, clampPage } from "@/lib/pagination"
+import { pokemonSearchParamsSchema } from "@/lib/validation"
 
-import { GetPokemons } from "../_actions"
 import CardList from "../_components/card-list"
 import Pagination from "../_components/pagination"
 import SearchPokemon from "../_components/search"
 import SkeletonCardList from "../_components/skeleton"
+import { getPokemons } from "../pokemon/actions"
 
 export default async function ServerPaginationPage(props: {
   searchParams?: Promise<{
@@ -19,10 +19,13 @@ export default async function ServerPaginationPage(props: {
   }>
 }) {
   const searchParams = await props.searchParams
-  const search = searchParams?.query || ""
+  const {
+    query,
+    page: currentPage,
+    limit,
+  } = pokemonSearchParamsSchema.parse(searchParams ?? {})
+  const search = query ?? ""
   const parsedPage = Number(searchParams?.page)
-  const currentPage = clampPage(parsedPage)
-  const limit = clampLimit(Number(searchParams?.limit))
   const offset = (currentPage - 1) * limit
 
   const buildPageUrl = (page: number) => {
@@ -38,7 +41,7 @@ export default async function ServerPaginationPage(props: {
     redirect(buildPageUrl(1))
   }
 
-  const { data, totalPages } = await GetPokemons({ offset, limit, search })
+  const { data, totalPages } = await getPokemons({ offset, limit, search })
 
   if (totalPages > 0 && currentPage > totalPages) {
     redirect(buildPageUrl(totalPages))

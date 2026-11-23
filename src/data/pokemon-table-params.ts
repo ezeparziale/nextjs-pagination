@@ -1,30 +1,24 @@
+import {
+  DEFAULT_ORDER,
+  DEFAULT_SORT,
+  type PokemonFilters,
+  type PokemonQuery,
+  type RangeFilter,
+  STAT_FIELDS,
+  type StatField,
+} from "@/app/pagination-advance/types"
+import { DEFAULT_PAGE_SIZE, PAGE_SIZE_OPTIONS } from "@/lib/pagination"
+import { statRangeSchema, tableSearchParamsSchema } from "@/lib/validation"
 import type {
   ColumnFiltersState,
   PaginationState,
   SortingState,
 } from "@tanstack/react-table"
 
-import { clampPage } from "@/lib/pagination"
-
-import {
-  DEFAULT_ORDER,
-  DEFAULT_SORT,
-  SORT_FIELDS,
-  STAT_FIELDS,
-  type PokemonFilters,
-  type PokemonQuery,
-  type RangeFilter,
-  type SortDir,
-  type SortField,
-  type StatField,
-} from "@/app/pagination-advance/types"
-
-export const PAGE_SIZE_OPTIONS = [10, 20, 50] as const
-export const DEFAULT_PAGE_SIZE = 20
+export { DEFAULT_PAGE_SIZE, PAGE_SIZE_OPTIONS }
 
 export type SearchParamsInput =
-  | URLSearchParams
-  | Record<string, string | string[] | undefined>
+  URLSearchParams | Record<string, string | string[] | undefined>
 
 function toURLSearchParams(input: SearchParamsInput): URLSearchParams {
   if (input instanceof URLSearchParams) return input
@@ -40,59 +34,37 @@ function toURLSearchParams(input: SearchParamsInput): URLSearchParams {
   return params
 }
 
-function toInt(value: string | null | undefined): number | undefined {
-  if (value === null || value === undefined || value.trim() === "") return undefined
-  const parsed = Number(value)
-  return Number.isFinite(parsed) ? Math.trunc(parsed) : undefined
-}
-
-function normalizePageSize(value: number | undefined): number {
-  return PAGE_SIZE_OPTIONS.includes(value as (typeof PAGE_SIZE_OPTIONS)[number])
-    ? (value as number)
-    : DEFAULT_PAGE_SIZE
-}
-
-function normalizeSort(value: string | null): SortField {
-  return SORT_FIELDS.includes(value as SortField) ? (value as SortField) : DEFAULT_SORT
-}
-
-function normalizeOrder(value: string | null): SortDir {
-  return value === "desc" ? "desc" : DEFAULT_ORDER
-}
-
 function isStatField(value: string): value is StatField {
   return (STAT_FIELDS as readonly string[]).includes(value)
 }
 
-function parseFilters(params: URLSearchParams): PokemonFilters {
-  const filters: PokemonFilters = {}
-
-  const name = params.get("q")?.trim()
-  if (name) filters.name = name
-
-  for (const stat of STAT_FIELDS) {
-    const min = toInt(params.get(`${stat}Min`))
-    const max = toInt(params.get(`${stat}Max`))
-    if (min !== undefined || max !== undefined) {
-      const range: RangeFilter = {}
-      if (min !== undefined) range.min = min
-      if (max !== undefined) range.max = max
-      filters[stat] = range
-    }
-  }
-
-  return filters
-}
-
 export function parseTableQuery(input: SearchParamsInput): PokemonQuery {
   const params = toURLSearchParams(input)
+  const parsed = tableSearchParamsSchema.parse({
+    page: params.get("page") ?? undefined,
+    pageSize: params.get("pageSize") ?? undefined,
+    sort: params.get("sort") ?? undefined,
+    order: params.get("order") ?? undefined,
+    q: params.get("q") ?? undefined,
+  })
+
+  const filters: PokemonFilters = {}
+  if (parsed.q) filters.name = parsed.q
+
+  for (const stat of STAT_FIELDS) {
+    const range = statRangeSchema.safeParse({
+      min: params.get(`${stat}Min`) ?? undefined,
+      max: params.get(`${stat}Max`) ?? undefined,
+    })
+    if (range.success) filters[stat] = range.data
+  }
 
   return {
-    page: clampPage(toInt(params.get("page")) ?? 1),
-    pageSize: normalizePageSize(toInt(params.get("pageSize"))),
-    sort: normalizeSort(params.get("sort")),
-    order: normalizeOrder(params.get("order")),
-    filters: parseFilters(params),
+    page: parsed.page,
+    pageSize: parsed.pageSize,
+    sort: parsed.sort,
+    order: parsed.order,
+    filters,
   }
 }
 

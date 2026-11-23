@@ -2,7 +2,7 @@
 
 import { useCallback, useRef, useState } from "react"
 
-import { GetPokemons } from "@/app/_actions"
+import { getPokemons } from "@/app/pokemon/actions"
 import type { Pokemon } from "@/generated/prisma/client"
 import { useOnInView } from "react-intersection-observer"
 
@@ -34,7 +34,7 @@ export function useInfinitePokemons({
     try {
       const next = page + 1
       const offset = page * limit
-      const { data: newData } = await GetPokemons({ search, offset, limit })
+      const { data: newData } = await getPokemons({ search, offset, limit })
 
       if (newData.length < limit) {
         setHasMore(false)
